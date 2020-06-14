@@ -13,7 +13,7 @@
     <Parameter name="chapter2" value="/chapter2"/>
     <Parameter name="chapter3" value="/chapter3"/>
     <Parameter name="chapter4" value="/chapter4"/>
-    <Parameter name="chapter5" value="/chapter5"/>
+    <Parameter name="chapter8" value="/chapter8"/>
     <Parameter name="userName" value="Admin" />
     <Parameter name="password" value="Did you think it will be real password?" />
   </TestRunParameters>
