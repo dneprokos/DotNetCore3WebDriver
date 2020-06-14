@@ -6,7 +6,7 @@ namespace WebDriverWithCore3Tests.PageObjects
     public class ChapterEightPage
     {
         public IWebDriver Driver { get; set; }
-        private SeleniumWaitHelpers seleniumHelper;
+        private readonly SeleniumWaitHelpers seleniumHelper;
 
         public ChapterEightPage(IWebDriver driver)
         {
@@ -14,7 +14,7 @@ namespace WebDriverWithCore3Tests.PageObjects
             seleniumHelper = new SeleniumWaitHelpers(Driver);
         }
 
-        public IWebElement createSecondCookieButton =>
+        public IWebElement CreateSecondCookieButton =>
             seleniumHelper.WaitUntilElementExists(By.Id("secondCookie"));
 
     }

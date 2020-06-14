@@ -8,6 +8,8 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
+    [TestFixture]
+    [Parallelizable]
     public class ChapterOnePageTests: TestBase
     {
         private ChapterOnePage chapterOnePage;
@@ -35,9 +37,9 @@ namespace WebDriverWithCore3Tests.Tests
             //Assert
             using (new AssertionScope()) 
             {
-               chapterOnePage.radioButton.GetAttribute(checkedAttribute).Should().Be("true");
-               chapterOnePage.checkBox.GetAttribute(checkedAttribute).Should().Be("true");
-               chapterOnePage.dropDownMenu.SelectedOption.Text.Should().Be(selectDropDownValue1);               
+               chapterOnePage.RadioButton.GetAttribute(checkedAttribute).Should().Be("true");
+               chapterOnePage.CheckBox.GetAttribute(checkedAttribute).Should().Be("true");
+               chapterOnePage.DropDownMenu.SelectedOption.Text.Should().Be(selectDropDownValue1);               
             }
 
             //Act
@@ -47,8 +49,8 @@ namespace WebDriverWithCore3Tests.Tests
             //Assert
             using (new AssertionScope())
             {
-                chapterOnePage.checkBox.GetAttribute(checkedAttribute).Should().Be(null);
-                chapterOnePage.dropDownMenu.SelectedOption.Text.Should().Be(selectDropDownValue2);
+                chapterOnePage.CheckBox.GetAttribute(checkedAttribute).Should().Be(null);
+                chapterOnePage.DropDownMenu.SelectedOption.Text.Should().Be(selectDropDownValue2);
             }
         }
 
@@ -58,10 +60,10 @@ namespace WebDriverWithCore3Tests.Tests
             //Arrange
 
             //Act
-            chapterOnePage.sendTextButton.Click();
-            chapterOnePage.sendTextButton.Click();
+            chapterOnePage.SendTextButton.Click();
+            chapterOnePage.SendTextButton.Click();
 
-            List<string> newTexts = chapterOnePage.addedTextElements
+            List<string> newTexts = chapterOnePage.AddedTextElements
                 .ToList()
                 .Select(el => el.Text)
                 .ToList();

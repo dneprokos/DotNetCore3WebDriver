@@ -7,7 +7,7 @@ namespace WebDriverWithCore3Tests.PageObjects
     {
         public IWebDriver Driver { get; set; }
 
-        private SeleniumWaitHelpers seleniumHelper;
+        private readonly SeleniumWaitHelpers seleniumHelper;
 
         public ChapterTwoPage(IWebDriver driver)
         {
@@ -15,7 +15,7 @@ namespace WebDriverWithCore3Tests.PageObjects
             seleniumHelper = new SeleniumWaitHelpers(Driver);
         }
 
-        public IWebElement randomIdElement =>
+        public IWebElement RandomIdElement =>
             seleniumHelper.WaitUntilElementExists(By.CssSelector("div[id*=\"time_\"]"));          
     }
 }

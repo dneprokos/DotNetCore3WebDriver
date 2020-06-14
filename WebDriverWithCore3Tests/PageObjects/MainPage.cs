@@ -9,7 +9,7 @@ namespace WebDriverWithCore3Tests.PageObjects
     {
         public IWebDriver Driver { get; set; }
 
-        private SeleniumWaitHelpers seleniumHelper;
+        private readonly SeleniumWaitHelpers seleniumHelper;
 
         public MainPage(IWebDriver driver)
         {
@@ -21,14 +21,14 @@ namespace WebDriverWithCore3Tests.PageObjects
         public IWebElement TextBox => seleniumHelper.WaitUntilElementExists(By.Id("q"));
         private IWebElement MainPageTitle => seleniumHelper.WaitUntilElementExists(By.XPath("//div[@class=\"mainheading\"]"));
         private IWebElement MainBodyFull => seleniumHelper.WaitUntilElementExists(By.XPath("//div[@class=\"mainbody\"]"));
-        private List<IWebElement> pageLinks => seleniumHelper.WaitUntilElementsExists(By.XPath("//div[@class=\"mainbody\"]/ul/li/a")).ToList();
+        private List<IWebElement> PageLinks => seleniumHelper.WaitUntilElementsExists(By.XPath("//div[@class=\"mainbody\"]/ul/li/a")).ToList();
 
         public string GetMainPageTitle() => MainPageTitle.Text;
 
         public Dictionary<string, string> GetPageLinks() 
         {
             var pageLinksDict = new Dictionary<string, string>();
-            pageLinks.ForEach(link => pageLinksDict.Add(link.Text, link.GetAttribute("href")));
+            PageLinks.ForEach(link => pageLinksDict.Add(link.Text, link.GetAttribute("href")));
 
             return pageLinksDict;
         }

@@ -8,7 +8,7 @@ namespace WebDriverWithCore3Tests.Common.Extensions
 {
     public class SeleniumWaitHelpers
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
 
         public SeleniumWaitHelpers(IWebDriver driver)
         {

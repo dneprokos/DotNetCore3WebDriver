@@ -5,14 +5,14 @@ namespace WebDriverWithCore3Tests.Common
 {
     public class WebDriverFactory
     {
-        public static IWebDriver CurrentDriver { get; private set; }
+        public IWebDriver CurrentDriver { get; private set; }
 
 
         /// <summary>
         /// Creates concreate driver based on TestSeetingsManager value
         /// </summary>
         /// <returns></returns>
-        public static IWebDriver CreateDriver()
+        public IWebDriver CreateDriver()
         {
             switch (TestSettingsManager.GetBrowser)
             {

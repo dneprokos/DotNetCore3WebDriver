@@ -7,8 +7,8 @@ namespace WebDriverWithCore3Tests.PageObjects
     public class ChapterFourPage
     {
         public IWebDriver Driver { get; set; }
-        private SeleniumWaitHelpers seleniumHelper;
-        private Actions actions;
+        private readonly SeleniumWaitHelpers seleniumHelper;
+        private readonly Actions actions;
 
         public ChapterFourPage(IWebDriver driver)
         {
@@ -17,11 +17,11 @@ namespace WebDriverWithCore3Tests.PageObjects
             actions = new Actions(Driver);
         }
 
-        public IWebElement textBoxTriggersAlert => seleniumHelper.WaitUntilElementExists(By.Id("blurry"));
+        public IWebElement TextBoxTriggersAlert => seleniumHelper.WaitUntilElementExists(By.Id("blurry"));
 
         public void EnterTextToAlertTextBoxAndMoveMouseOut(string text) 
         {
-            textBoxTriggersAlert.SendKeys(text);
+            TextBoxTriggersAlert.SendKeys(text);
 
             actions.Click().Build().Perform();
         }

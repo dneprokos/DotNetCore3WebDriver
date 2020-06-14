@@ -4,7 +4,7 @@ namespace WebDriverWithCore3Tests.Common.Helpers
 {
     public class SessionStorage
     {
-        IWebDriver WebDriver;
+        private readonly IWebDriver WebDriver;
 
         public SessionStorage(IWebDriver webDriver)
         {
@@ -23,16 +23,6 @@ namespace WebDriverWithCore3Tests.Common.Helpers
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)WebDriver;
             js.ExecuteScript(jsScript);
-        }
-
-        public void SetItem(string key, int value)
-        {
-
-        }
-
-        public void SetItem(string key, bool value)
-        {
-
         }
 
         /// <summary>

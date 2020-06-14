@@ -6,7 +6,7 @@ namespace WebDriverWithCore3Tests.Common
     {
         public IWebDriver Invoke() 
         {
-           return WebDriverFactory.CreateDriver();
+           return new WebDriverFactory().CreateDriver();
         }
     }
 }

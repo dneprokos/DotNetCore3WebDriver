@@ -8,6 +8,8 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
+    [TestFixture]
+    [Parallelizable]
     public class ChapterEightPageTests: TestBase
     {
         ChapterEightPage chapterEightPage;
@@ -28,7 +30,7 @@ namespace WebDriverWithCore3Tests.Tests
             var expectedCookieNames = new List<string> { "secondcookie" };
 
             //Act
-            chapterEightPage.createSecondCookieButton.Click();
+            chapterEightPage.CreateSecondCookieButton.Click();
             List<string> cookieNames = WebDriver.Manage().Cookies.AllCookies
                 .Select(cookie => cookie.Name).ToList();
 

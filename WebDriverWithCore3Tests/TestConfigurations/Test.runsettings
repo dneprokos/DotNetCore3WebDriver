@@ -3,6 +3,7 @@
 <RunSettings>
   <RunConfiguration>
     <ResultsDirectory>.\TestResults</ResultsDirectory>
+    <DisableParallelization>false</DisableParallelization>
   </RunConfiguration>
   
 	<TestRunParameters>  

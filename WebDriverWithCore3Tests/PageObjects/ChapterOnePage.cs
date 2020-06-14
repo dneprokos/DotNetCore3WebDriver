@@ -9,7 +9,7 @@ namespace WebDriverWithCore3Tests.PageObjects
     {
         public IWebDriver Driver { get; set; }
 
-        private SeleniumWaitHelpers seleniumHelper;
+        private readonly SeleniumWaitHelpers seleniumHelper;
 
         public ChapterOnePage(IWebDriver driver)
         {
@@ -17,31 +17,31 @@ namespace WebDriverWithCore3Tests.PageObjects
             seleniumHelper = new SeleniumWaitHelpers(Driver);
         }
 
-        public IWebElement radioButton => seleniumHelper.WaitUntilElementExists(By.Id("radiobutton"));
-        public IWebElement checkBox => 
+        public IWebElement RadioButton => seleniumHelper.WaitUntilElementExists(By.Id("radiobutton"));
+        public IWebElement CheckBox => 
             seleniumHelper.WaitUntilElementExists(By.XPath("//input[@name=\"selected(1234)\"]"));
 
-        public IWebElement sendTextButton => seleniumHelper.WaitUntilElementExists(By.Id("secondajaxbutton"));
+        public IWebElement SendTextButton => seleniumHelper.WaitUntilElementExists(By.Id("secondajaxbutton"));
 
-        public List<IWebElement> addedTextElements => 
+        public List<IWebElement> AddedTextElements => 
             seleniumHelper.WaitUntilElementsExists(By.XPath("//div[@id=\"html5div\"]/div"));
 
-        public SelectElement dropDownMenu => 
+        public SelectElement DropDownMenu => 
             new SelectElement(Driver.FindElement(By.Id("selecttype")));
 
         public void ClickRadioButton() 
         {
-            radioButton.Click();
+            RadioButton.Click();
         }
 
         public void ClickCheckBox()
         {
-            checkBox.Click();
+            CheckBox.Click();
         }
 
         public void SelectFromDropDownMenu(string text) 
         {
-            dropDownMenu.SelectByText(text);
+            DropDownMenu.SelectByText(text);
         }
 
     }

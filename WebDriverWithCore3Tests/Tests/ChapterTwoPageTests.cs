@@ -5,6 +5,8 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
+    [TestFixture]
+    [Parallelizable]
     public class ChapterTwoPageTests: TestBase
     {
         private ChapterTwoPage chapterTwoPage;
@@ -26,13 +28,13 @@ namespace WebDriverWithCore3Tests.Tests
             //Act
 
             //Assert
-            chapterTwoPage.randomIdElement.Text.Should().Be(expectedText);
+            chapterTwoPage.RandomIdElement.Text.Should().Be(expectedText);
 
             //Act
             WebDriver.Navigate().Refresh();
 
             //Assert
-            chapterTwoPage.randomIdElement.Text.Should().Be(expectedText);
+            chapterTwoPage.RandomIdElement.Text.Should().Be(expectedText);
         }
     }
 }
