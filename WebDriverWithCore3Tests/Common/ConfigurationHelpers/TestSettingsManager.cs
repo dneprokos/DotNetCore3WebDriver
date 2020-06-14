@@ -15,7 +15,7 @@ namespace WebDriverWithCore3Tests.Common
         public static string Chapter2_Page => GetBaseUrl + TestContext.Parameters["chapter2"];
         public static string Chapter3_Page => GetBaseUrl + TestContext.Parameters["chapter3"];
         public static string Chapter4_Page => GetBaseUrl + TestContext.Parameters["chapter4"];
-        public static string Chapter5_Page => GetBaseUrl + TestContext.Parameters["chapter5"];
+        public static string Chapter8_Page => GetBaseUrl + TestContext.Parameters["chapter8"];
         public static int DefaultTimeOut => int.Parse(TestContext.Parameters["waitTimeOut"]);
     }
 }
