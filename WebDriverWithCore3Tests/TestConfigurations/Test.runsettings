@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- File name extension must be .runsettings -->
+<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>.\TestResults</ResultsDirectory>
+  </RunConfiguration>
+  
+	<TestRunParameters>  
+    <Parameter name="browser" value="Chrome" />
+    <Parameter name="waitTimeOut" value="30" />
+    <Parameter name="baseUrl" value="http://book.theautomatedtester.co.uk/" />
+    <Parameter name="chapter1" value="/chapter1"/>
+    <Parameter name="chapter2" value="/chapter2"/>
+    <Parameter name="chapter3" value="/chapter3"/>
+    <Parameter name="chapter4" value="/chapter4"/>
+    <Parameter name="chapter5" value="/chapter5"/>
+    <Parameter name="userName" value="Admin" />
+    <Parameter name="password" value="Did you think it will be real password?" />
+  </TestRunParameters>
+  
+</RunSettings>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDriverWithCore3Tests", "WebDriverWithCore3Tests\WebDriverWithCore3Tests.csproj", "{023E3218-BD31-4275-AFB8-4000637774D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{023E3218-BD31-4275-AFB8-4000637774D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{023E3218-BD31-4275-AFB8-4000637774D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{023E3218-BD31-4275-AFB8-4000637774D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{023E3218-BD31-4275-AFB8-4000637774D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0A58AF1-6559-4F75-8197-230962DF1034}
+	EndGlobalSection
+EndGlobal
