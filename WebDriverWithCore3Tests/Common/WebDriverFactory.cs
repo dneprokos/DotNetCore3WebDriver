@@ -8,6 +8,10 @@ namespace WebDriverWithCore3Tests.Common
         public static IWebDriver CurrentDriver { get; private set; }
 
 
+        /// <summary>
+        /// Creates concreate driver based on TestSeetingsManager value
+        /// </summary>
+        /// <returns></returns>
         public static IWebDriver CreateDriver()
         {
             switch (TestSettingsManager.GetBrowser)

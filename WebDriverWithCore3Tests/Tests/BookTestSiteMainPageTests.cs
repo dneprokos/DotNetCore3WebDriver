@@ -6,7 +6,7 @@ using System.Linq;
 using WebDriverWithCore3Tests.Common;
 using WebDriverWithCore3Tests.PageObjects;
 
-namespace WebDriverWithCore3Tests
+namespace WebDriverWithCore3Tests.Tests
 {
     [TestFixture]
     public class BookTestSiteMainPageTests: TestBase

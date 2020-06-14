@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
 
 namespace WebDriverWithCore3Tests.Common.Helpers
 {
@@ -12,6 +11,11 @@ namespace WebDriverWithCore3Tests.Common.Helpers
             WebDriver = webDriver;
         }
 
+        /// <summary>
+        /// Sets session storage item
+        /// </summary>
+        /// <param name="key">item key</param>
+        /// <param name="value">item value</param>
         public void SetItem(string key, string value) 
         {
             var jsScript = 
@@ -31,6 +35,11 @@ namespace WebDriverWithCore3Tests.Common.Helpers
 
         }
 
+        /// <summary>
+        /// Gets session storage item by id
+        /// </summary>
+        /// <param name="key">item key</param>
+        /// <returns></returns>
         public string GetItem(string key)
         {
             var jsScript =
