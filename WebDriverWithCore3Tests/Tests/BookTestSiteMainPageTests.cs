@@ -17,8 +17,8 @@ namespace WebDriverWithCore3Tests.Tests
         public override void Setup()
         {
             base.Setup();
-            WebDriver.Url = TestSettingsManager.GetBaseUrl;
-            mainPage = new MainPage(WebDriver);
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.GetBaseUrl;
+            mainPage = new MainPage();
         }
 
         [Test]

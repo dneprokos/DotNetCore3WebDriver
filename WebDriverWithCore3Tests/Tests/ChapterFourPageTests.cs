@@ -14,8 +14,8 @@ namespace WebDriverWithCore3Tests.Tests
         public override void Setup()
         {
             base.Setup();
-            chapterFourPage = new ChapterFourPage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter4_Page;
+            chapterFourPage = new ChapterFourPage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter4_Page;
             
         }
 
@@ -27,6 +27,20 @@ namespace WebDriverWithCore3Tests.Tests
 
             //Act
             chapterFourPage.EnterTextToAlertTextBoxAndMoveMouseOut(text);
+            string alertText = chapterFourPage.GetAlertTextAndAccept();
+
+            //Assert
+            alertText.Should().Be(text);
+        }
+
+        [Test]
+        public void AlertShouldAppearAfterMouseOverElement() 
+        {
+            //Arrange
+            var text = "on MouseOver worked";
+
+            //Act
+            chapterFourPage.MoveMouseOverTextTriggersAlert();
             string alertText = chapterFourPage.GetAlertTextAndAccept();
 
             //Assert

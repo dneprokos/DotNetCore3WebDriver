@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- File name extension must be .runsettings -->
+<RunSettings>
+  <RunConfiguration>
+    <ResultsDirectory>.\TestResults\BookSite</ResultsDirectory>
+    <DisableParallelization>false</DisableParallelization>
+  </RunConfiguration>
+  
+	<TestRunParameters>  
+    <Parameter name="browser" value="Chrome" />
+    <Parameter name="waitTimeOut" value="30" />
+    <Parameter name="baseUrl" value="https://agular-test-shop-cb70d.firebaseapp.com/" />
+    <Parameter name="chapter1" value="/chapter1"/>
+  </TestRunParameters>
+  
+</RunSettings>

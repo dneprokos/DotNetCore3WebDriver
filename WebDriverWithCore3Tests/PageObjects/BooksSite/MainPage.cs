@@ -1,27 +1,21 @@
 ﻿using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
+using WebDriverWithCore3Tests.Common;
 using WebDriverWithCore3Tests.Common.Extensions;
 
 namespace WebDriverWithCore3Tests.PageObjects
 {
     public class MainPage
     {
-        public IWebDriver Driver { get; set; }
-
-        private readonly SeleniumWaitHelpers seleniumHelper;
-
-        public MainPage(IWebDriver driver)
-        {
-            Driver = driver;
-            seleniumHelper = new SeleniumWaitHelpers(Driver);
-        }
-
-
-        public IWebElement TextBox => seleniumHelper.WaitUntilElementExists(By.Id("q"));
-        private IWebElement MainPageTitle => seleniumHelper.WaitUntilElementExists(By.XPath("//div[@class=\"mainheading\"]"));
-        private IWebElement MainBodyFull => seleniumHelper.WaitUntilElementExists(By.XPath("//div[@class=\"mainbody\"]"));
-        private List<IWebElement> PageLinks => seleniumHelper.WaitUntilElementsExists(By.XPath("//div[@class=\"mainbody\"]/ul/li/a")).ToList();
+        public IWebElement TextBox => WebDriverFactory.CurrentDriver
+            .WaitForElement(By.Id("q"));
+        private IWebElement MainPageTitle => WebDriverFactory.CurrentDriver
+            .WaitForElement(By.XPath("//div[@class=\"mainheading\"]"));
+        private IWebElement MainBodyFull => WebDriverFactory.CurrentDriver
+            .WaitForElement(By.XPath("//div[@class=\"mainbody\"]"));
+        private List<IWebElement> PageLinks => WebDriverFactory.CurrentDriver
+            .WaitForElements(By.XPath("//div[@class=\"mainbody\"]/ul/li/a")).ToList();
 
         public string GetMainPageTitle() => MainPageTitle.Text;
 
@@ -36,7 +30,7 @@ namespace WebDriverWithCore3Tests.PageObjects
         public void ClickPageLink(string linkName) 
         {
             var xPath = string.Format("//div[@class=\"mainbody\"]/ul/li/a[text()=\"{0}\"]", linkName);
-            seleniumHelper.WaitUntilElementExists(By.XPath(xPath)).Click();
+            WebDriverFactory.CurrentDriver.WaitForElement(By.XPath(xPath)).Click();
         }
 
         public string GetMainBodyText() 

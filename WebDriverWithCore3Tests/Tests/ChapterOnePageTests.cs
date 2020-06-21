@@ -17,8 +17,8 @@ namespace WebDriverWithCore3Tests.Tests
         public override void Setup()
         {
             base.Setup();
-            chapterOnePage = new ChapterOnePage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter1_Page;
+            chapterOnePage = new ChapterOnePage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter1_Page;
         }
 
         [Test]

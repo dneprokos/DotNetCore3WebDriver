@@ -8,6 +8,7 @@ namespace WebDriverWithCore3Tests.Common
     public class TestSettingsManager
     {
         public static string GetBrowser => TestContext.Parameters["browser"];
+        public static string IsHeadlessMode => TestContext.Parameters["isHeadless"];
         public static string GetUserName => TestContext.Parameters["userName"];
         public static string GetPassword => TestContext.Parameters["password"];
         public static string GetBaseUrl => TestContext.Parameters["baseUrl"];

@@ -17,16 +17,16 @@ namespace WebDriverWithCore3Tests.Tests
         public override void Setup()
         {
             base.Setup();
-            chapterEightPage = new ChapterEightPage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter8_Page;
+            chapterEightPage = new ChapterEightPage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter8_Page;
         }
 
         [Test]
         public void AddNewCookiesTest() 
         {
             //Arrange
-            WebDriver.Navigate().Refresh();
-            WebDriver.Manage().Cookies.DeleteAllCookies();
+            WebDriverFactory.CurrentDriver.Navigate().Refresh();
+            WebDriverFactory.CurrentDriver.Manage().Cookies.DeleteAllCookies();
             var expectedCookieNames = new List<string> { "secondcookie" };
 
             //Act

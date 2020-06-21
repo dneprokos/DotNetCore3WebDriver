@@ -13,10 +13,16 @@ namespace WebDriverWithCore3Tests.Common
         [SetUp]
         public virtual void Setup()
         {
-            WebDriver = new NewWebDriver().Invoke();
+            var driverOptions = new DriverOptions
+            {
+                Browser = TestSettingsManager.GetBrowser,
+                IsHeadless = false
+            };
+
+            TestFramework.WebDriver.Start(driverOptions);
         }
 
         [TearDown]
-        public virtual void TearDown() => WebDriver.Close();
+        public virtual void TearDown() => TestFramework.WebDriver.Stop();
     }
 }

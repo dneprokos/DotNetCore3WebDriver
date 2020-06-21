@@ -14,8 +14,8 @@ namespace WebDriverWithCore3Tests.Tests
         public override void Setup()
         {
             base.Setup();
-            chapterTwoPage = new ChapterTwoPage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter2_Page;
+            chapterTwoPage = new ChapterTwoPage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter2_Page;
         }
 
         [Test]
