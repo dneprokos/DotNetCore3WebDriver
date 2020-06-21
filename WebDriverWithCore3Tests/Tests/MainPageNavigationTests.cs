@@ -6,8 +6,7 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
+    [TestFixture, Parallelizable(ParallelScope.All)]
     public class MainPageNavigationTests: TestBase
     {
         private MainPage mainPage;

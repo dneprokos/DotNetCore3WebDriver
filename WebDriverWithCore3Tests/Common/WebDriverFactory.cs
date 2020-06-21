@@ -86,6 +86,10 @@ namespace WebDriverWithCore3Tests.Common
                      ChromeDriverService driverService 
                             = ChromeDriverService.CreateDefaultService(AppDomain.CurrentDomain.BaseDirectory);
                      var options = new ChromeOptions();
+                        options.AddArgument("window-size=1920, 1080");
+                        options.AddArgument("no-sandbox");
+
+
                      CurrentDriver = new ChromeDriver(driverService, options);
                      FixDriverExecutionDelay(CurrentDriver);   
                      break;
@@ -104,7 +108,7 @@ namespace WebDriverWithCore3Tests.Common
             var remoteServerUriField = commandExecutor.GetType().GetField("remoteServerUri",
                 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
 
-            if (remoteServerUriField.Equals(null)) 
+            if (remoteServerUriField == null) 
             {
                 FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor",
                     BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
@@ -114,7 +118,7 @@ namespace WebDriverWithCore3Tests.Common
                 remoteServerUriField = commandExecutor.GetType().GetField("remoteServerUri",
                     BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
             }
-            if (!remoteServerUriField.Equals(null))  
+            if (remoteServerUriField != null)  
             {
                 string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
                 var localhostUriPrefix = "http://localhost";

@@ -5,8 +5,7 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
+    [TestFixture, Parallelizable(ParallelScope.All)]
     public class ChapterFourPageTests: TestBase
     {
         private ChapterFourPage chapterFourPage;
