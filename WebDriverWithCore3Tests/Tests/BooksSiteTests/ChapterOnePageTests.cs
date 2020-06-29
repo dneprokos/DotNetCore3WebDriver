@@ -8,17 +8,16 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
-    public class ChapterOnePageTests: TestBase
+    [TestFixture, Parallelizable(ParallelScope.All)]
+    public class ChapterOnePageTests : TestBase
     {
         private ChapterOnePage chapterOnePage;
 
         public override void Setup()
         {
             base.Setup();
-            chapterOnePage = new ChapterOnePage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter1_Page;
+            chapterOnePage = new ChapterOnePage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter1_Page;
         }
 
         [Test]

@@ -5,17 +5,16 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
-    public class ChapterTwoPageTests: TestBase
+    [TestFixture, Parallelizable(ParallelScope.All)]
+    public class ChapterTwoPageTests : TestBase
     {
         private ChapterTwoPage chapterTwoPage;
 
         public override void Setup()
         {
             base.Setup();
-            chapterTwoPage = new ChapterTwoPage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter2_Page;
+            chapterTwoPage = new ChapterTwoPage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter2_Page;
         }
 
         [Test]
@@ -31,7 +30,7 @@ namespace WebDriverWithCore3Tests.Tests
             chapterTwoPage.RandomIdElement.Text.Should().Be(expectedText);
 
             //Act
-            WebDriver.Navigate().Refresh();
+            WebDriverFactory.CurrentDriver.Navigate().Refresh();
 
             //Assert
             chapterTwoPage.RandomIdElement.Text.Should().Be(expectedText);

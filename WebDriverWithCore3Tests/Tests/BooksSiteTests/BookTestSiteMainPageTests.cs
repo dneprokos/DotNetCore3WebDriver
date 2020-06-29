@@ -8,24 +8,23 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
-    public class BookTestSiteMainPageTests: TestBase
+    [TestFixture, Parallelizable(ParallelScope.All)]
+    public class BookTestSiteMainPageTests : TestBase
     {
         private MainPage mainPage;
 
         public override void Setup()
         {
             base.Setup();
-            WebDriver.Url = TestSettingsManager.GetBaseUrl;
-            mainPage = new MainPage(WebDriver);
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.GetBaseUrl;
+            mainPage = new MainPage();
         }
 
         [Test]
         public void AssertAllExpectedElementsPresent()
         {
             //Arrange
-            string actualUrl = WebDriver.Url;
+            string actualUrl = WebDriverFactory.CurrentDriver.Url;
             var expectedTitle = "Selenium: Beginners Guide";
             var expectedBodyText = 
                 "Below is a list of links to the examples needed in the chapters. " +

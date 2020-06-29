@@ -8,30 +8,29 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
-    public class ChapterEightPageTests: TestBase
+    [TestFixture, Parallelizable(ParallelScope.All)]
+    public class ChapterEightPageTests : TestBase
     {
         ChapterEightPage chapterEightPage;
 
         public override void Setup()
         {
             base.Setup();
-            chapterEightPage = new ChapterEightPage(WebDriver);
-            WebDriver.Url = TestSettingsManager.Chapter8_Page;
+            chapterEightPage = new ChapterEightPage();
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.Chapter8_Page;
         }
 
         [Test]
         public void AddNewCookiesTest() 
         {
             //Arrange
-            WebDriver.Navigate().Refresh();
-            WebDriver.Manage().Cookies.DeleteAllCookies();
+            WebDriverFactory.CurrentDriver.Navigate().Refresh();
+            WebDriverFactory.CurrentDriver.Manage().Cookies.DeleteAllCookies();
             var expectedCookieNames = new List<string> { "secondcookie" };
 
             //Act
             chapterEightPage.CreateSecondCookieButton.Click();
-            List<string> cookieNames = WebDriver.Manage().Cookies.AllCookies
+            List<string> cookieNames = WebDriverFactory.CurrentDriver.Manage().Cookies.AllCookies
                 .Select(cookie => cookie.Name).ToList();
 
             //Assert
@@ -42,7 +41,7 @@ namespace WebDriverWithCore3Tests.Tests
         public void AddNewSessionItem() 
         {
             //Arrange
-            var sessionStorage = new SessionStorage(WebDriver);
+            var sessionStorage = new SessionStorage(WebDriverFactory.CurrentDriver);
             var key = "userName";
             var value = "Kostas";
 

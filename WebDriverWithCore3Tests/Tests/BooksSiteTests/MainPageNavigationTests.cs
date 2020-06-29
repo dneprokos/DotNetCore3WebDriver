@@ -6,17 +6,16 @@ using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
 {
-    [TestFixture]
-    [Parallelizable]
-    public class MainPageNavigationTests: TestBase
+    [TestFixture, Parallelizable(ParallelScope.All)]
+    public class MainPageNavigationTests : TestBase
     {
         private MainPage mainPage;
 
         public override void Setup()
         {
             base.Setup();
-            WebDriver.Url = TestSettingsManager.GetBaseUrl;
-            mainPage = new MainPage(WebDriver);
+            WebDriverFactory.CurrentDriver.Url = TestSettingsManager.GetBaseUrl;
+            mainPage = new MainPage();
         }
 
         [Test]
@@ -34,7 +33,7 @@ namespace WebDriverWithCore3Tests.Tests
             mainPage.ClickPageLink(pageName);
 
             //Assert
-            WebDriver.Url.Should().Be(expectedPageUrl.ToLowerInvariant());          
+            WebDriverFactory.CurrentDriver.Url.Should().Be(expectedPageUrl.ToLowerInvariant());          
         }
     }
 }
