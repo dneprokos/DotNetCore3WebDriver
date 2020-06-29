@@ -2,11 +2,14 @@
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace WebDriverWithCore3Tests.Common
 {
@@ -16,6 +19,10 @@ namespace WebDriverWithCore3Tests.Common
 
         private static readonly ConcurrentDictionary<IWebDriver, string> WebDriverCollection 
             = new ConcurrentDictionary<IWebDriver, string>();
+
+        private static readonly List<int> runningChromeProcesses = Process.GetProcessesByName("chrome")
+            .Select(process => process.Id)
+            .ToList();
 
 
         public static IWebDriver CurrentDriver 
@@ -35,7 +42,7 @@ namespace WebDriverWithCore3Tests.Common
         /// </summary>
         /// <param name="driverOptions"></param>
         public void Start(DriverOptions driverOptions) 
-        { 
+        {
             if (driverOptions.Equals(null)) 
             {
                 throw new ArgumentException(MethodBase.GetCurrentMethod().Name);
@@ -51,6 +58,8 @@ namespace WebDriverWithCore3Tests.Common
                     return;
                 }
             }
+
+            //Creates new driver. Adds it as current driver and then to drivers colletion
             CurrentDriver = GetWebDriver(driverOptions);
             WebDriverCollection.TryAdd(CurrentDriver, TestContext.CurrentContext.Test.ID);
         }
@@ -64,6 +73,7 @@ namespace WebDriverWithCore3Tests.Common
                 .First(dict => dict.Value.Equals(TestContext.CurrentContext.Test.ID))
                 .Key;
 
+            //Quits driver in case of exception
             if (TestContext.CurrentContext.Result.Outcome.Status.Equals(TestStatus.Failed) 
                 && TestContext.CurrentContext.Result.Message.Contains("WebDriverException")) 
             {
@@ -71,7 +81,6 @@ namespace WebDriverWithCore3Tests.Common
                 WebDriverCollection.TryRemove(currentWebDriver, out string testID);
             }
 
-            currentWebDriver.Quit();
             WebDriverCollection
                 .TryUpdate(currentWebDriver, string.Empty, TestContext.CurrentContext.Test.ID);
         }
@@ -86,50 +95,67 @@ namespace WebDriverWithCore3Tests.Common
                      ChromeDriverService driverService 
                             = ChromeDriverService.CreateDefaultService(AppDomain.CurrentDomain.BaseDirectory);
                      var options = new ChromeOptions();
-                        options.AddArgument("window-size=1920, 1080");
+                        options.AddArgument("window-size=1920, 1080"); //TODO: Read it from configuration
                         options.AddArgument("no-sandbox");
 
-
-                     CurrentDriver = new ChromeDriver(driverService, options);
-                     FixDriverExecutionDelay(CurrentDriver);   
+                     CurrentDriver = new ChromeDriver(driverService, options);  
                      break;
                 }
             }
             return CurrentDriver;
         }
 
-        private void FixDriverExecutionDelay(IWebDriver currentDriver)
+        public void QuitAndKillProcesses() 
         {
-            PropertyInfo executorProperty = typeof(RemoteWebDriver).GetProperty("CommandExecutor",
-                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty);
+            var timer = new Stopwatch();
+            timer.Start();
 
-            ICommandExecutor commandExecutor = (ICommandExecutor)executorProperty.GetValue(currentDriver);
-
-            var remoteServerUriField = commandExecutor.GetType().GetField("remoteServerUri",
-                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
-
-            if (remoteServerUriField == null) 
+            while (WebDriverCollection.Values.Any(driver => !string.IsNullOrEmpty(driver)) && timer.Elapsed.Seconds < 60)
             {
-                FieldInfo internalExecutorField = commandExecutor.GetType().GetField("internalExecutor",
-                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField);
-
-                commandExecutor = (ICommandExecutor)internalExecutorField.GetValue(commandExecutor);
-
-                remoteServerUriField = commandExecutor.GetType().GetField("remoteServerUri",
-                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SetField);
+                Thread.Sleep(TimeSpan.FromSeconds(1)); //TODO: Need to fix in the future
             }
-            if (remoteServerUriField != null)  
-            {
-                string remoteServerUri = remoteServerUriField.GetValue(commandExecutor).ToString();
-                var localhostUriPrefix = "http://localhost";
 
-                if (remoteServerUri.StartsWith(localhostUriPrefix)) 
+            WebDriverCollection.ToList().ForEach(pair => pair.Key.Quit());
+            WebDriverCollection.Clear();
+
+            List<int> chromeProcessesIds = Process.GetProcessesByName("chrome")
+                .Select(process => process.Id)
+                .ToList();
+
+            List<int> processIds = chromeProcessesIds.Except(runningChromeProcesses).ToList();
+
+            processIds.ForEach(processId =>
+            {
+                try
                 {
-                    remoteServerUri = remoteServerUri.Replace(localhostUriPrefix, "http://127.0.01");
-                    remoteServerUriField.SetValue(commandExecutor, new Uri(remoteServerUri));
+                    Process.GetProcessById(processId).Kill();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            });
+        }
+
+        public void KillChromeProcesses(string processName = "chromedriver", bool applyForCreatedOnly = true) 
+        {
+            foreach (Process process in Process.GetProcessesByName(processName))
+            {
+                string testRunPath = string.Concat(Directory.GetCurrentDirectory(), @"\", $"{processName}.exe");
+                string processPath = process.MainModule.FileName;
+
+                if (applyForCreatedOnly && testRunPath != processPath)
+                    continue;
+
+                try
+                {
+                    process.Kill();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-
         }
     }
 }

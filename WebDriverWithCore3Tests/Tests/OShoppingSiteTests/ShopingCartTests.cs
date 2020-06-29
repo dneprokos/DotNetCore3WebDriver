@@ -5,7 +5,7 @@ using WebDriverWithCore3Tests.PageObjects;
 namespace WebDriverWithCore3Tests.Tests
 {
     [TestFixture, Parallelizable(ParallelScope.All)]
-    public class ShopingCartTests: TestBase
+    public class ShopingCartTests : TestBase
     {
         private OShopMainPage oshopMainPage;
         private OShopNavigationBar oShopNavigationBar;

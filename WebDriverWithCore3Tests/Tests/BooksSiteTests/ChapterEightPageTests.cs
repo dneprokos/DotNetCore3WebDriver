@@ -9,7 +9,7 @@ using WebDriverWithCore3Tests.PageObjects;
 namespace WebDriverWithCore3Tests.Tests
 {
     [TestFixture, Parallelizable(ParallelScope.All)]
-    public class ChapterEightPageTests: TestBase
+    public class ChapterEightPageTests : TestBase
     {
         ChapterEightPage chapterEightPage;
 

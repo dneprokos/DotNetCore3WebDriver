@@ -6,7 +6,7 @@ using WebDriverWithCore3Tests.PageObjects;
 namespace WebDriverWithCore3Tests.Tests
 {
     [TestFixture, Parallelizable(ParallelScope.All)]
-    public class ChapterTwoPageTests: TestBase
+    public class ChapterTwoPageTests : TestBase
     {
         private ChapterTwoPage chapterTwoPage;
 
