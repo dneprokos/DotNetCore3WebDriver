@@ -24,9 +24,9 @@ namespace WebDriverWithCore3Tests.Tests
         public void ButtonsCheckTest() 
         {
             //Arrange
-            string selectDropDownValue1 = "Selenium Core";
-            string selectDropDownValue2 = "Selenium Grid";
-            string checkedAttribute = "checked";
+            var selectDropDownValue1 = "Selenium Core";
+            var selectDropDownValue2 = "Selenium Grid";
+            var checkedAttribute = "checked";
 
             //Act
             chapterOnePage.ClickRadioButton();

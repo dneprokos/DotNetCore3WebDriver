@@ -53,7 +53,7 @@ namespace WebDriverWithCore3Tests.Tests
 
                 linkNames.Should().Contain(expectedLinkNames);
                 hrefs.Should().Contain(expectedHrefs);
-                mainPage.TextBox.Should().NotBeNull();
+                mainPage.TextField.Should().NotBeNull();
             }
         }
 
@@ -64,11 +64,10 @@ namespace WebDriverWithCore3Tests.Tests
             var text = "Test";
 
             //Act
-            mainPage.TypeToTextField(text);
-            string actualText = mainPage.GetTextFieldValue();
+            mainPage.TextField.TypeText(text);
             
             //Assert
-            actualText.Should().Be(text);
+            mainPage.TextField.ReadText().Should().Be(text);
         }
 
 

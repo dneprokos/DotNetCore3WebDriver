@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using WebDriverWithCore3Tests.Common;
 using WebDriverWithCore3Tests.Common.Extensions;
+using WebDriverWithCore3Tests.Common.WebElements;
 
 namespace WebDriverWithCore3Tests.PageObjects
 {
     public class MainPage
     {
-        public IWebElement TextBox => WebDriverFactory.CurrentDriver
-            .WaitForElement(By.Id("q"));
         private IWebElement MainPageTitle => WebDriverFactory.CurrentDriver
             .WaitForElement(By.XPath("//div[@class=\"mainheading\"]"));
         private IWebElement MainBodyFull => WebDriverFactory.CurrentDriver
             .WaitForElement(By.XPath("//div[@class=\"mainbody\"]"));
         private List<IWebElement> PageLinks => WebDriverFactory.CurrentDriver
             .WaitForElements(By.XPath("//div[@class=\"mainbody\"]/ul/li/a")).ToList();
+
+        public TextFieldElement TextField => new TextFieldElement { ID = "q" };
 
         public string GetMainPageTitle() => MainPageTitle.Text;
 
@@ -38,16 +39,5 @@ namespace WebDriverWithCore3Tests.PageObjects
             var mainText = MainBodyFull.Text.Split("\n")[0];
             return mainText;
         } 
-
-        public void TypeToTextField(string text) 
-        {
-            TextBox.SendKeys(text);
-        }
-
-        public string GetTextFieldValue()
-        {
-            return TextBox.GetAttribute("value");
-        }
-
     }
 }

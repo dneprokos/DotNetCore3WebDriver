@@ -1,0 +1,3 @@
+@ECHO OFF
+ECHO Building test project...
+dotnet build

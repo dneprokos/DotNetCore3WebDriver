@@ -1,7 +1,11 @@
 ﻿using FluentAssertions;
+using NLog;
 using NUnit.Framework;
+using WebDriverWithCore3Tests.Assertions;
+using WebDriverWithCore3Tests.Builders;
 using WebDriverWithCore3Tests.Common;
 using WebDriverWithCore3Tests.Common.Extensions;
+using WebDriverWithCore3Tests.Models;
 using WebDriverWithCore3Tests.PageObjects;
 
 namespace WebDriverWithCore3Tests.Tests
@@ -10,6 +14,7 @@ namespace WebDriverWithCore3Tests.Tests
     public class MainPageNavigationTests : TestBase
     {
         private MainPage mainPage;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public override void Setup()
         {
@@ -34,6 +39,21 @@ namespace WebDriverWithCore3Tests.Tests
 
             //Assert
             WebDriverFactory.CurrentDriver.Url.Should().Be(expectedPageUrl.ToLowerInvariant());          
+        }
+
+        [Test]
+        [Category("Smoke")]
+        public void FakerUser_UserShouldBeGenerated() 
+        {
+            //Arrange
+            //Act
+            UserTestModel testUser = new UserBuilder()
+                .AddFirstName()
+                .AddLastName()
+                .Build();
+
+            //Assert
+            UserTestModelAssertion.AssertFakeUserDetails(testUser);
         }
     }
 }

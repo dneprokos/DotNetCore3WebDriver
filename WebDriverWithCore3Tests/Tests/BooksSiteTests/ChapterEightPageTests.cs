@@ -41,7 +41,7 @@ namespace WebDriverWithCore3Tests.Tests
         public void AddNewSessionItem() 
         {
             //Arrange
-            var sessionStorage = new SessionStorage(WebDriverFactory.CurrentDriver);
+            var sessionStorage = new SessionStorageManager();
             var key = "userName";
             var value = "Kostas";
 

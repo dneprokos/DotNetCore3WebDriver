@@ -1,0 +1,3 @@
+@ECHO OFF
+ECHO Running BooksSite tests...
+dotnet test --filter "Category=Smoke" -s "C:\Projects\WebDriverWithCore3Tests\WebDriverWithCore3Tests\TestConfigurations\bookSite.runsettings"

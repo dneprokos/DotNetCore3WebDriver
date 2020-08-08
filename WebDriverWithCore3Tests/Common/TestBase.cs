@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using WebDriverWithCore3Tests.Common.Helpers;
 
 namespace WebDriverWithCore3Tests.Common
 {
@@ -7,7 +8,21 @@ namespace WebDriverWithCore3Tests.Common
     /// </summary>
     [SetUpFixture]
     public class TestBase
-    {        
+    {
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            TestFramework.WebDriver.QuitAndKillProcesses();
+            TestFramework.WebDriver.KillChromeProcesses();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            TestFramework.WebDriver.QuitAndKillProcesses();
+            TestFramework.WebDriver.KillChromeProcesses();
+        }
+
         [SetUp]
         public virtual void Setup()
         {
@@ -23,14 +38,10 @@ namespace WebDriverWithCore3Tests.Common
         [TearDown]
         public virtual void TearDown() 
         {
+            ScreenShotManager.MakeScreenOnTestFail();
             TestFramework.WebDriver.Stop();
         }
 
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            TestFramework.WebDriver.QuitAndKillProcesses();
-            TestFramework.WebDriver.KillChromeProcesses();
-        }
+        
     }
 }

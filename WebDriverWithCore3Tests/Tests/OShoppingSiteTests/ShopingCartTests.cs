@@ -1,6 +1,9 @@
 ﻿using NUnit.Framework;
+using System.Linq;
 using WebDriverWithCore3Tests.Common;
+using WebDriverWithCore3Tests.Common.Helpers;
 using WebDriverWithCore3Tests.PageObjects;
+using WebDriverWithCore3Tests.PageObjects.OShopSite;
 
 namespace WebDriverWithCore3Tests.Tests
 {
@@ -13,10 +16,10 @@ namespace WebDriverWithCore3Tests.Tests
         public override void Setup()
         {
             base.Setup();
-            oshopMainPage = new OShopMainPage();
-            oShopNavigationBar = new OShopNavigationBar();
-
+            
             WebDriverFactory.CurrentDriver.Url = TestSettingsManager.GetBaseUrl;
+            oShopNavigationBar = new OShopNavigationBar();
+            oshopMainPage = new OShopMainPage();
         }
 
         [Test]
@@ -24,11 +27,16 @@ namespace WebDriverWithCore3Tests.Tests
         {
             //Arrange
 
-            //Act
+            //Actwd
             oshopMainPage.AddFoodToCard("Tomato").AddMoreItems(2);
             oShopNavigationBar.ShoppingCartLink.Click();
+            var shoppingCartTable = new ShopingCartPage().shoppingCartTable;
+
+            var headers = shoppingCartTable.GetHeaderNames();
+            var cells = shoppingCartTable.GetRowsWithData();
 
             //Assert
+            Assert.IsTrue(true);
         }
     }
 }

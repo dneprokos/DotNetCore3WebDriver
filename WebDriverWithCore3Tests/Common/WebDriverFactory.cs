@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NLog;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -15,6 +16,8 @@ namespace WebDriverWithCore3Tests.Common
 {
     public class WebDriverFactory
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private static readonly object collectionLocker = new object();
 
         private static readonly ConcurrentDictionary<IWebDriver, string> WebDriverCollection 
@@ -43,6 +46,9 @@ namespace WebDriverWithCore3Tests.Common
         /// <param name="driverOptions"></param>
         public void Start(DriverOptions driverOptions) 
         {
+            logger.Info("Starting driver with the following options: \n"
+                + "Browser: " + driverOptions.Browser + 
+                "\nIsHeadless: " + driverOptions.IsHeadless);
             if (driverOptions.Equals(null)) 
             {
                 throw new ArgumentException(MethodBase.GetCurrentMethod().Name);
@@ -74,8 +80,8 @@ namespace WebDriverWithCore3Tests.Common
                 .Key;
 
             //Quits driver in case of exception
-            if (TestContext.CurrentContext.Result.Outcome.Status.Equals(TestStatus.Failed) 
-                && TestContext.CurrentContext.Result.Message.Contains("WebDriverException")) 
+            if (TestContext.CurrentContext.Result.Outcome.Status.Equals(TestStatus.Failed)
+                && TestContext.CurrentContext.Result.Message.Contains("WebDriverException"))
             {
                 currentWebDriver.Quit();
                 WebDriverCollection.TryRemove(currentWebDriver, out string testID);

@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using WebDriverWithCore3Tests.Common;
 using WebDriverWithCore3Tests.Common.Extensions;
+using WebDriverWithCore3Tests.Common.Helpers;
 
 namespace WebDriverWithCore3Tests.PageObjects
 {
     public class OShopMainPage
     {
+        public OShopMainPage()
+        {
+            WaitManager.WaitForTrueCondition(
+                () => ProductCards.Count > 0,
+                "Wait for product cards");
+        }
+
         private string currentFoodName;
 
         public List<IWebElement> ProductCards

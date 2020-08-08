@@ -4,17 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebDriverWithCore3Tests.Common.Extensions
+namespace WebDriverWithCore3Tests.Common.Helpers
 {
     public class SeleniumWaitHelpers
     {
-        private readonly IWebDriver driver;
-
-        public SeleniumWaitHelpers(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
-
         /// <summary>
         /// Waits during defined time until element is available or fails if it's not 
         /// </summary>
@@ -23,7 +16,7 @@ namespace WebDriverWithCore3Tests.Common.Extensions
         /// <returns></returns>
         public IWebElement WaitUntilElementExists(By locator, int maxSeconds = 30)
         {
-            return new WebDriverWait(driver, TimeSpan.FromSeconds(maxSeconds)).Until(dr => dr.FindElement(locator));
+            return new WebDriverWait(WebDriverFactory.CurrentDriver, TimeSpan.FromSeconds(maxSeconds)).Until(dr => dr.FindElement(locator));
         }
 
         /// <summary>
@@ -34,7 +27,7 @@ namespace WebDriverWithCore3Tests.Common.Extensions
         /// <returns></returns>
         public List<IWebElement> WaitUntilElementsExists(By locator, int maxSeconds = 30)
         {
-            return new WebDriverWait(driver, TimeSpan.FromSeconds(maxSeconds))
+            return new WebDriverWait(WebDriverFactory.CurrentDriver, TimeSpan.FromSeconds(maxSeconds))
                 .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(locator))
                 .ToList();
         }

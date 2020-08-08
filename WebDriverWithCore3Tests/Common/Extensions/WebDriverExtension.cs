@@ -34,7 +34,7 @@ namespace WebDriverWithCore3Tests.Common.Extensions
         }
 
         public static IWebElement WaitForElement(this IWebElement element, By locator,
-            int secondsTimeOut = 5) //TODO: Read it from configuration
+            int secondsTimeOut = 10) //TODO: Read it from configuration
         {
             if (secondsTimeOut <= 0)
                 return element.FindElement(locator);
